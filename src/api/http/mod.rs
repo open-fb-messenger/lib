@@ -3,12 +3,12 @@ use reqwest::{self, header::HeaderMap, Method};
 use std::collections::HashMap;
 use std::fs::read;
 use std::io::{BufReader, Bytes};
+use std::sync::Arc;
 use zstd::stream::zio::Reader;
 
 use super::state::State;
 use std::convert::TryInto;
 
-#[derive(Clone)]
 pub struct DecompressableResponse {
     pub response: Response,
     pub decompressed: bool,
@@ -165,10 +165,11 @@ impl HTTP {
             let bytes_result = response.response.bytes().await;
             if let Ok(bytes) = bytes_result {
                 let body: &[u8] = &bytes;
-                response.data =
+                let decompressed_file =
                     zstd::Decoder::with_prepared_dictionary(body, &self.decoder_dict).unwrap();
                 response.decompressed = true;
             }
+            // let bytes= bytes_result.unwrap();
         }
     }
 }
