@@ -96,9 +96,9 @@ impl Carrier {
 
 pub struct Session {
     pub access_token: Option<String>,
-    pub uid: Option<i32>,
+    pub uid: Option<u64>,
     pub password_encryption_pubkey: Option<String>,
-    pub password_encryption_key_id: Option<i32>,
+    pub password_encryption_key_id: Option<i64>,
     pub machine_id: Option<String>,
     pub transient_auth_token: Option<String>,
     pub login_first_factor: Option<String>,

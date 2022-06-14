@@ -6,9 +6,16 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-reqwest = "0.11.10"
+reqwest = { version = "0.11.10", features = ["json"] }
 md5 = "0.7.0"
 rand = "0.8.5"
-uuid = {version = "1.1.1", features = ["v4","fast-rng","macro-diagnostics"]}
-tokio = {version = "1.19.2", features = ["macros","rt-multi-thread"] }
+uuid = { version = "1.1.1", features = ["v4","fast-rng","macro-diagnostics"] }
+tokio = { version = "1.19.2", features = ["macros","rt-multi-thread"] }
 zstd = "0.11.2+zstd.1.5.2"
+rsa = "0.6.1"
+aes-gcm = { version ="0.9.4", features = ["std"] }
+json = "0.12.4"
+serde = { version = "1.0.137", features = ["derive"] }
+thiserror = "1.0.31"
+base64 = "0.13.0"
+urlencoding = "2.1.0"
