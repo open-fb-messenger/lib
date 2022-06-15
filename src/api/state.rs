@@ -1,4 +1,4 @@
-use rand::{distributions::Slice, thread_rng, Rng};
+use rand::{distributions::Slice, rngs::StdRng, thread_rng, Rng, SeedableRng};
 use uuid::Uuid;
 pub struct Device {
     pub manufacturer: &'static str,
@@ -134,7 +134,12 @@ impl State {
             session: Session::new(),
         }
     }
-    pub fn generate(&mut self) {
+    pub fn generate(&mut self, seed: Option<[u8; 32]>) {
+        let mut rng = if let Some(seed) = seed {
+            StdRng::from_seed(seed)
+        } else {
+            StdRng::from_rng(thread_rng()).unwrap()
+        };
         let hexdigits: Slice<char> = Slice::new(&[
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'A',
             'B', 'C', 'D', 'E', 'F',
